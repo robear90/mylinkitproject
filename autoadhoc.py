@@ -17,7 +17,6 @@ import os
 import socket
 import os
 from urllib2 import urlopen, URLError, HTTPError
-#Test change
 
 #assign program LED
 led = mraa.Gpio(21)
@@ -53,10 +52,10 @@ if __name__ == '__main__':
     if CheckConnect() == 'Connected':          
         print "connected"
     else:
-		print "disconnecting"
+        print "disconnecting"
         os.system("uci set wireless.sta.disabled=1") #Disable station mode
         time.sleep(1)
         os.system("uci commit") #commit uci changes
         time.sleep(3)
         os.system("wifi") #Restarts wifi interface
-		time.sleep(1)
+        time.sleep(1)
