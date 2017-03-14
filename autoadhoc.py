@@ -28,6 +28,8 @@ from urllib2 import urlopen, URLError, HTTPError
 def CheckConnect():
     print 'checking connection'
     socket.setdefaulttimeout( 23 )
+    tmp = os.popen("route -n | grep 'UG[ \t]' | awk '{print $2}'").read()
+    print "%s" %tmp
     url = 'http://google.com/'
     try :
         response = urlopen( url )
