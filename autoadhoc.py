@@ -1,6 +1,6 @@
 #!/usr/bin/python
 '''
-99% of this code is from 'cardtocloud' by BrettBuilds
+Code is based off of 'cardtocloud' by BrettBuilds
 https://github.com/bhileman/cardtocloud
 Used under GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
@@ -8,7 +8,7 @@ Version 3, 29 June 2007
 import sys
 import smtplib
 from datetime import datetime
-import mraa
+#import mraa
 import os.path
 import logging
 import time
@@ -19,10 +19,10 @@ import os
 from urllib2 import urlopen, URLError, HTTPError
 
 #assign program LED
-led = mraa.Gpio(21)
+#led = mraa.Gpio(21)
 
 #set GPIO21 to output mode
-led.dir(mraa.DIR_OUT)
+#led.dir(mraa.DIR_OUT)
 
 
 def CheckConnect():
@@ -32,10 +32,10 @@ def CheckConnect():
     try :
         response = urlopen( url )
     except HTTPError:
-        led.write(1)
+     #   led.write(1)
         return 'Disconnected'
     except URLError:
-        led.write(1)
+     #   led.write(1)
         return 'Disconnected'
     else :
         html = response.read()
@@ -49,13 +49,11 @@ def CheckConnect():
    
 if __name__ == '__main__':
     # Check for internet connection, auto switch to AP Mode if not connected
-    if CheckConnect() == 'Connected':          
+    os.system("wifi_mode sta") #Restarts wifi interface
+    time.sleep(25)
+    if CheckConnect() == 'Connected':
         print "connected"
     else:
-        print "disconnecting"
-        os.system("uci set wireless.sta.disabled=1") #Disable station mode
-        time.sleep(1)
-        os.system("uci commit") #commit uci changes
+        print "No access to known routers - disconnecting!"
         time.sleep(3)
-        os.system("wifi") #Restarts wifi interface
-        time.sleep(1)
+        os.system("wifi_mode ap") #Restarts wifi interface
