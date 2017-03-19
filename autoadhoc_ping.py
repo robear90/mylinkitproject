@@ -38,7 +38,7 @@ def CheckConnect():
     if response == 0:
         pingstatus = "Network Active"
     else:
-        pingstatus = "Network Error"s
+        pingstatus = "Network Error"
 
     return pingstatus
 
